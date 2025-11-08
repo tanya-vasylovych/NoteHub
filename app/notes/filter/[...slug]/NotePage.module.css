@@ -11,15 +11,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #dee2e6;
+  background-color: #d2d7df;
+  border-bottom: 1px solid #8a897c;
 }
 
 .button {
   padding: 6px 12px;
   font-size: 16px;
   color: #fff;
-  background-color: #0d6efd;
+  background-color: #8a897c;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -27,5 +27,5 @@
 }
 
 .button:hover {
-  background-color: #0b5ed7;
+  background-color: #bdbbb0;
 }
