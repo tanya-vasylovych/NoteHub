@@ -18,6 +18,11 @@
 }
 
 .menuLink:hover {
-  background-color: #353535;
-  color: #ddd;
+  background-color: #8a897c;
+  color: #fff;
+}
+
+.menuLink.active {
+  background-color: #8a897c;
+  color: #fff;
 }
