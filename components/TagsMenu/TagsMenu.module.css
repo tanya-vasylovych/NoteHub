@@ -26,13 +26,13 @@
   top: calc(100% + 6px);
   left: 0;
   background-color: #333;
-  border: 1px solid #ddd;
+  border: none;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 6px 0;
   margin: 0;
   list-style: none;
-  min-width: 180px;
+  min-width: 136px;
   z-index: 1000;
 }
 
@@ -43,13 +43,14 @@
 .menuLink {
   display: block;
   padding: 8px 16px;
-  color: #f0f0f0;
+  color: #e9ecef;
   text-decoration: none;
   font-size: 15px;
   transition: background-color 0.2s ease;
 }
 
-.menuLink:hover {
-  background-color: #f0f0f0;
+.menuLink:hover,
+.menuLink:focus {
+  background-color: #8a897c;
   color: #333;
 }
