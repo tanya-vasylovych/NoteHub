@@ -8,6 +8,8 @@ import { useDebouncedCallback } from "use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Link from "next/link";
+import Modal from "@/components/Modal/Modal";
+import NoteForm from "@/components/NoteForm/NoteForm";
 
 interface NotesClientProps {
   tag: string;
@@ -16,6 +18,7 @@ interface NotesClientProps {
 const NoteClient = ({ tag }: NotesClientProps) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { data, isSuccess, isPending } = useQuery({
     queryKey: ["notes", page, search, tag],
@@ -33,6 +36,9 @@ const NoteClient = ({ tag }: NotesClientProps) => {
     setPage(1);
   }, 1000);
 
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
@@ -44,10 +50,11 @@ const NoteClient = ({ tag }: NotesClientProps) => {
             onChange={handlePageChange}
           />
         )}
-        <Link className={css.button} href="/notes/action/create">
+        <button onClick={openModal} className={css.button}>
           Create note +
-        </Link>
+        </button>
       </header>
+
       {isPending && !data && <div>Loading...</div>}
 
       {isSuccess && data?.notes.length > 0 ? (
@@ -55,7 +62,14 @@ const NoteClient = ({ tag }: NotesClientProps) => {
       ) : (
         isSuccess && <div>No notes found</div>
       )}
+
+      {isModalOpen && (
+        <Modal closeModal={closeModal}>
+          <NoteForm />
+        </Modal>
+      )}
     </div>
   );
 };
+
 export default NoteClient;
