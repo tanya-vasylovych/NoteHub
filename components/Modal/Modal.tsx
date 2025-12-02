@@ -1,32 +1,28 @@
-import css from "./Modal.module.css";
+"use client";
+import { Modal as MuiModal } from "@mui/material";
 import { useEffect } from "react";
-import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
+import css from "./Modal.module.css";
+
 interface ModalProps {
   children: React.ReactNode;
   closeModal: () => void;
 }
 
 const Modal = ({ children, closeModal }: ModalProps) => {
-  const el = document.createElement("div");
   const router = useRouter();
   const close = () => router.back();
 
   useEffect(() => {
-    document.body.appendChild(el);
-    document.body.style.overflow = "hidden";
-
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
     };
     document.addEventListener("keydown", onEsc);
 
     return () => {
-      document.body.removeChild(el);
-      document.body.style.overflow = "";
       document.removeEventListener("keydown", onEsc);
     };
-  }, [el, closeModal]);
+  }, [closeModal]);
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -34,19 +30,23 @@ const Modal = ({ children, closeModal }: ModalProps) => {
     }
   };
 
-  return createPortal(
-    <div
-      className={css.backdrop}
-      role="dialog"
-      aria-modal="true"
-      onClick={handleBackdropClick}
+  return (
+    <MuiModal
+      open={true}
+      onClose={closeModal}
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+      BackdropProps={{
+        onClick: handleBackdropClick,
+      }}
     >
       <div className={css.modal}>
         {children}
-        <button onClick={close}>Close</button>
+        <button onClick={close} className={css.close}>
+          Close
+        </button>
       </div>
-    </div>,
-    el
+    </MuiModal>
   );
 };
 

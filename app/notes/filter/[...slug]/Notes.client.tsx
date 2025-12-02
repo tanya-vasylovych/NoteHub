@@ -7,7 +7,6 @@ import Pagination from "@/components/Pagination/Pagination";
 import { useDebouncedCallback } from "use-debounce";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import Link from "next/link";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 
@@ -55,12 +54,12 @@ const NoteClient = ({ tag }: NotesClientProps) => {
         </button>
       </header>
 
-      {isPending && !data && <div>Loading...</div>}
+      {isPending && !data && <div className={css.loading}>Loading...</div>}
 
       {isSuccess && data?.notes.length > 0 ? (
         <NoteList notes={data.notes} />
       ) : (
-        isSuccess && <div>No notes found</div>
+        isSuccess && <div className={css.loading}>No notes found</div>
       )}
 
       {isModalOpen && (

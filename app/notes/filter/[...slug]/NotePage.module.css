@@ -29,3 +29,6 @@
 .button:hover {
   background-color: #bdbbb0;
 }
+.loading {
+  color: #353535;
+}
