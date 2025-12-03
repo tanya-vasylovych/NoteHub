@@ -10,9 +10,6 @@ interface ModalProps {
 }
 
 const Modal = ({ children, closeModal }: ModalProps) => {
-  const router = useRouter();
-  const close = () => router.back();
-
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeModal();
@@ -40,12 +37,7 @@ const Modal = ({ children, closeModal }: ModalProps) => {
         onClick: handleBackdropClick,
       }}
     >
-      <div className={css.modal}>
-        {children}
-        <button onClick={close} className={css.close}>
-          Close
-        </button>
-      </div>
+      <div className={css.modal}>{children}</div>
     </MuiModal>
   );
 };
