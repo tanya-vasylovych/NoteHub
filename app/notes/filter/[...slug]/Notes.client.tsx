@@ -9,6 +9,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
+import Loader from "@/components/Loader/Loader";
 
 interface NotesClientProps {
   tag: string;
@@ -54,7 +55,7 @@ const NoteClient = ({ tag }: NotesClientProps) => {
         </button>
       </header>
 
-      {isPending && !data && <div className={css.loading}>Loading...</div>}
+      {isPending && !data && <Loader />}
 
       {isSuccess && data?.notes.length > 0 ? (
         <NoteList notes={data.notes} />
