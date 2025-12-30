@@ -10,6 +10,7 @@ import { useState } from "react";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import Loader from "@/components/Loader/Loader";
+import { useNoteDraftStore } from "@/lib/store/noteStore";
 
 interface NotesClientProps {
   tag: string;
@@ -19,6 +20,7 @@ const NoteClient = ({ tag }: NotesClientProps) => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { clearDraft } = useNoteDraftStore();
 
   const { data, isSuccess, isPending } = useQuery({
     queryKey: ["notes", page, search, tag],
@@ -37,7 +39,10 @@ const NoteClient = ({ tag }: NotesClientProps) => {
   }, 1000);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    clearDraft();
+    setIsModalOpen(false);
+  };
 
   return (
     <div className={css.app}>
